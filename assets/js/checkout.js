@@ -317,7 +317,7 @@
          */
         showLoading: function($field) {
             this.clearValidation($field);
-            const $loading = $('<small class="dniwoo-feedback dniwoo-loading">⏳ ' + 'Validating...' + '</small>')
+            const $loading = $('<small class="dniwoo-feedback dniwoo-loading">Validating...</small>')
                 .insertAfter($field);
         },
 

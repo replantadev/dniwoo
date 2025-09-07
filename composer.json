@@ -20,8 +20,8 @@
   "authors": [
     {
       "name": "Replanta",
-      "email": "hello@replanta.es",
-      "homepage": "https://replanta.es",
+      "email": "info@replanta.dev",
+      "homepage": "https://replanta.net",
       "role": "Developer"
     }
   ],
@@ -29,7 +29,7 @@
     "issues": "https://github.com/replantadev/dniwoo/issues",
     "source": "https://github.com/replantadev/dniwoo",
     "docs": "https://github.com/replantadev/dniwoo/wiki",
-    "email": "support@replanta.es"
+    "email": "info@replanta.dev"
   },
   "require": {
     "php": ">=7.4",

@@ -33,6 +33,7 @@ class DNIWOO_Admin {
         add_action('admin_menu', array($this, 'add_admin_menu'));
         add_action('admin_init', array($this, 'settings_init'));
         add_filter('plugin_action_links_' . DNIWOO_PLUGIN_BASENAME, array($this, 'add_settings_link'));
+        add_action('wp_ajax_dniwoo_check_updates', array($this, 'ajax_check_updates'));
     }
 
     /**
@@ -215,7 +216,73 @@ class DNIWOO_Admin {
                 </div>
             </div>
         </div>
+
+        <!-- Update Section -->
+        <div class="dniwoo-settings-section">
+            <h3><?php echo esc_html__('Plugin Updates', 'dniwoo'); ?></h3>
+            <p><?php echo esc_html__('Check for plugin updates manually or view current version information.', 'dniwoo'); ?></p>
+            
+            <table class="form-table">
+                <tr>
+                    <th scope="row"><?php echo esc_html__('Current Version', 'dniwoo'); ?></th>
+                    <td>
+                        <code><?php echo esc_html(DNIWOO_VERSION); ?></code>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><?php echo esc_html__('Check for Updates', 'dniwoo'); ?></th>
+                    <td>
+                        <button type="button" id="dniwoo-check-updates" class="button button-secondary">
+                            <?php echo esc_html__('Check Now', 'dniwoo'); ?>
+                        </button>
+                        <div id="dniwoo-update-result" style="margin-top: 10px;"></div>
+                        <p class="description">
+                            <?php echo esc_html__('Manually check for available updates from GitHub.', 'dniwoo'); ?>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <?php
+    }
+
+    /**
+     * AJAX handler for checking updates
+     */
+    public function ajax_check_updates() {
+        // Verify nonce
+        if (!wp_verify_nonce($_POST['nonce'], 'dniwoo_check_updates')) {
+            wp_die(esc_html__('Security check failed', 'dniwoo'));
+        }
+
+        // Check user capability
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('Insufficient permissions', 'dniwoo'));
+        }
+
+        // Get updater instance
+        $updater = dniwoo()->get_updater();
+        
+        if (!$updater) {
+            wp_send_json_error(esc_html__('Updater not available', 'dniwoo'));
+        }
+
+        // Force check for updates
+        $updater->force_check();
+        
+        // Get update info
+        $update_info = $updater->get_update_info();
+        
+        if ($update_info) {
+            $message = sprintf(
+                /* translators: %s: version number */
+                esc_html__('Update available: version %s', 'dniwoo'),
+                esc_html($update_info['version'])
+            );
+            wp_send_json_success($message);
+        } else {
+            wp_send_json_success(esc_html__('Plugin is up to date', 'dniwoo'));
+        }
     }
 
     /**

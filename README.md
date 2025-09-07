@@ -4,16 +4,16 @@ Professional DNI/NIF field for WooCommerce checkout with validation for Spain an
 
 ## Features
 
-- ✅ **Professional validation** for Spanish documents (DNI, NIE, CIF)
-- ✅ **Portuguese document support** (NIF, NIPC)
-- ✅ **Real-time validation** with AJAX
-- ✅ **Client-side validation** for instant feedback
-- ✅ **WooCommerce integration** - seamless checkout experience
-- ✅ **Theme compatibility** - works with all major themes
-- ✅ **Responsive design** - mobile-friendly
-- ✅ **Accessibility** - WCAG compliant
-- ✅ **Auto-updates** via GitHub
-- ✅ **WordPress standards** compliant
+- Professional validation for Spanish documents (DNI, NIE, CIF)
+- Portuguese document support (NIF, NIPC)
+- Real-time validation with AJAX
+- Client-side validation for instant feedback
+- WooCommerce integration - seamless checkout experience
+- Theme compatibility - works with all major themes
+- Responsive design - mobile-friendly
+- Accessibility - WCAG compliant
+- Auto-updates via GitHub
+- WordPress standards compliant
 
 ## Installation
 
@@ -50,12 +50,12 @@ Navigate to **WooCommerce > Settings > DNIWOO** to configure:
 
 ## Supported Documents
 
-### Spain 🇪🇸
+### Spain
 - **DNI** (Documento Nacional de Identidad) - 8 digits + letter
 - **NIE** (Número de Identidad de Extranjero) - X/Y/Z + 7 digits + letter  
 - **CIF** (Código de Identificación Fiscal) - Letter + 7 digits + control
 
-### Portugal 🇵🇹
+### Portugal
 - **NIF** (Número de Identificação Fiscal) - 9 digits
 - **NIPC** (Número de Identificação de Pessoa Coletiva) - 9 digits
 
@@ -76,13 +76,13 @@ Navigate to **WooCommerce > Settings > DNIWOO** to configure:
 
 DNIWOO is designed to work with all WordPress themes:
 
-- **Astra** ✅
-- **Storefront** ✅ 
-- **GeneratePress** ✅
-- **OceanWP** ✅
-- **Divi** ✅
-- **Avada** ✅
-- **And many more** ✅
+- **Astra**
+- **Storefront** 
+- **GeneratePress**
+- **OceanWP**
+- **Divi**
+- **Avada**
+- **And many more**
 
 ## Styling
 
@@ -249,7 +249,8 @@ composer phpcbf
 
 - **GitHub Issues**: [Report bugs](https://github.com/replantadev/dniwoo/issues)
 - **Documentation**: [Wiki](https://github.com/replantadev/dniwoo/wiki)
-- **Email**: support@replanta.es
+- **Email**: info@replanta.dev
+- **Website**: [https://replanta.net](https://replanta.net)
 
 ## License
 
@@ -257,8 +258,4 @@ GPL v3 or later - [License](https://www.gnu.org/licenses/gpl-3.0.html)
 
 ## Credits
 
-Developed by [Replanta](https://replanta.es) - Sustainable WordPress solutions.
-
----
-
-**Made with ❤️ for the WordPress community**
+Developed by [Replanta](https://replanta.net) - Sustainable WordPress solutions.
