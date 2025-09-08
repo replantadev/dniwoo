@@ -46,7 +46,7 @@ class DNIWOO_Updater {
         $this->update_checker = PucFactory::buildUpdateChecker(
             'https://github.com/replantadev/dniwoo',
             DNIWOO_PLUGIN_FILE,
-            'dniwoo-pro'
+            'dniwoo'
         );
 
         // Enable release assets if needed
@@ -69,7 +69,7 @@ class DNIWOO_Updater {
             '%s | <a href="%s">%s</a>',
             $link,
             $settings_url,
-            __('Settings', 'dniwoo-pro')
+            __('Settings', 'dniwoo')
         );
     }
 

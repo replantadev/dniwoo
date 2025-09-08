@@ -1,21 +1,21 @@
 <?php
 /**
- * DNIWOO - Professionadefine('DNIWOO_VERSION', '1.0.2'); DNI/NIF field for WooCommerce
+ * DNIWOO - Professional DNI/NIF field for WooCommerce
  * 
  * @package DNIWOO
  * @author Replanta
  * @copyright 2024 Replanta
  * @license GPL-3.0-or-later
- * @version 1.0.2
+ * @version 1.0.3
  * 
  * @wordpress-plugin
- * Plugin Name: DNIWOO Pro - DNI/NIF for WooCommerce
+ * Plugin Name: DNIWOO - DNI/NIF for WooCommerce
  * Plugin URI: https://replanta.net/dniwoo
  * Description: Professional DNI/NIF field for WooCommerce checkout with validation for Spain and Portugal.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Replanta
  * Author URI: https://replanta.net
- * Text Domain: dniwoo-pro
+ * Text Domain: dniwoo
  * Domain Path: /languages
  * Requires at least: 5.0
  * Tested up to: 6.5
@@ -33,12 +33,12 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('DNIWOO_VERSION', '1.0.0');
+define('DNIWOO_VERSION', '1.0.3');
 define('DNIWOO_PLUGIN_FILE', __FILE__);
 define('DNIWOO_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('DNIWOO_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('DNIWOO_PLUGIN_BASENAME', plugin_basename(__FILE__));
-define('DNIWOO_TEXT_DOMAIN', 'dniwoo-pro');
+define('DNIWOO_TEXT_DOMAIN', 'dniwoo');
 
 /**
  * Main DNIWOO class
@@ -188,7 +188,7 @@ final class DNIWOO {
      */
     public function load_textdomain() {
         load_plugin_textdomain(
-            'dniwoo-pro',
+            'dniwoo',
             false,
             dirname(plugin_basename(__FILE__)) . '/languages'
         );
@@ -202,8 +202,8 @@ final class DNIWOO {
         if (!$this->check_dependencies()) {
             deactivate_plugins(plugin_basename(__FILE__));
             wp_die(
-                esc_html__('DNIWOO requires WooCommerce 5.0 or higher to be installed and active.', 'dniwoo-pro'),
-                esc_html__('Plugin Activation Error', 'dniwoo-pro'),
+                esc_html__('DNIWOO requires WooCommerce 5.0 or higher to be installed and active.', 'dniwoo'),
+                esc_html__('Plugin Activation Error', 'dniwoo'),
                 array('back_link' => true)
             );
         }
@@ -227,7 +227,7 @@ final class DNIWOO {
     public function woocommerce_missing_notice() {
         $message = sprintf(
             /* translators: %s: WooCommerce plugin name */
-            esc_html__('DNIWOO requires %s to be installed and active.', 'dniwoo-pro'),
+            esc_html__('DNIWOO requires %s to be installed and active.', 'dniwoo'),
             '<strong>WooCommerce</strong>'
         );
         
@@ -243,7 +243,7 @@ final class DNIWOO {
     public function woocommerce_version_notice() {
         $message = sprintf(
             /* translators: %s: required WooCommerce version */
-            esc_html__('DNIWOO requires WooCommerce version %s or higher.', 'dniwoo-pro'),
+            esc_html__('DNIWOO requires WooCommerce version %s or higher.', 'dniwoo'),
             '<strong>5.0</strong>'
         );
         
@@ -309,7 +309,7 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 $updateChecker = PucFactory::buildUpdateChecker(
     'https://github.com/replantadev/dniwoo/',
     __FILE__,
-    'dniwoo-pro'
+    'dniwoo'
 );
 
 /**
