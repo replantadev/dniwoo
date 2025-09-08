@@ -21,7 +21,7 @@ mkdir %PLUGIN_DIR%
 
 echo Copying production files...
 copy dniwoo.php %PLUGIN_DIR%\
-copy README.md %PLUGIN_DIR%\
+copy readme.txt %PLUGIN_DIR%\
 copy CHANGELOG.md %PLUGIN_DIR%\
 
 REM Copy directories
