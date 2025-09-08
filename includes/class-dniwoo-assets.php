@@ -68,15 +68,15 @@ class DNIWOO_Assets {
             'validation_mode' => get_option('dniwoo_validation_mode', 'real_time'),
             'messages' => array(
                 'es' => array(
-                    'invalid' => __('Invalid DNI/NIE/CIF', 'dniwoo'),
-                    'valid' => __('Valid document', 'dniwoo'),
-                    'label' => __('DNI/NIE/CIF', 'dniwoo'),
+                    'invalid' => __('Invalid DNI/NIE/CIF', 'dniwoo-pro'),
+                    'valid' => __('Valid document', 'dniwoo-pro'),
+                    'label' => __('DNI/NIE/CIF', 'dniwoo-pro'),
                     'placeholder' => '12345678X',
                 ),
                 'pt' => array(
-                    'invalid' => __('Invalid NIF/NIPC', 'dniwoo'),
-                    'valid' => __('Valid document', 'dniwoo'),
-                    'label' => __('NIF/NIPC', 'dniwoo'),
+                    'invalid' => __('Invalid NIF/NIPC', 'dniwoo-pro'),
+                    'valid' => __('Valid document', 'dniwoo-pro'),
+                    'label' => __('NIF/NIPC', 'dniwoo-pro'),
                     'placeholder' => '123456789',
                 ),
             ),
@@ -116,8 +116,8 @@ class DNIWOO_Assets {
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('dniwoo_check_updates'),
             'strings' => array(
-                'checking' => __('Checking for updates...', 'dniwoo'),
-                'error' => __('Error checking for updates', 'dniwoo'),
+                'checking' => __('Checking for updates...', 'dniwoo-pro'),
+                'error' => __('Error checking for updates', 'dniwoo-pro'),
             )
         ));
     }

@@ -44,8 +44,8 @@ class DNIWOO_Admin {
     public function add_admin_menu() {
         add_submenu_page(
             'woocommerce',
-            __('DNIWOO Settings', 'dniwoo'),
-            __('DNI/NIF Field', 'dniwoo'),
+            __('DNIWOO Settings', 'dniwoo-pro'),
+            __('DNI/NIF Field', 'dniwoo-pro'),
             'manage_woocommerce',
             'dniwoo-settings',
             array($this, 'settings_page')
@@ -66,14 +66,14 @@ class DNIWOO_Admin {
 
         add_settings_section(
             'dniwoo_settings_section',
-            __('DNI/NIF Field Configuration', 'dniwoo'),
+            __('DNI/NIF Field Configuration', 'dniwoo-pro'),
             array($this, 'settings_section_callback'),
             'dniwoo_settings'
         );
 
         add_settings_field(
             'dniwoo_enabled',
-            __('Enable DNI/NIF Field', 'dniwoo'),
+            __('Enable DNI/NIF Field', 'dniwoo-pro'),
             array($this, 'enabled_field_callback'),
             'dniwoo_settings',
             'dniwoo_settings_section'
@@ -81,7 +81,7 @@ class DNIWOO_Admin {
 
         add_settings_field(
             'dniwoo_required',
-            __('Required Field', 'dniwoo'),
+            __('Required Field', 'dniwoo-pro'),
             array($this, 'required_field_callback'),
             'dniwoo_settings',
             'dniwoo_settings_section'
@@ -89,7 +89,7 @@ class DNIWOO_Admin {
 
         add_settings_field(
             'dniwoo_position',
-            __('Field Position', 'dniwoo'),
+            __('Field Position', 'dniwoo-pro'),
             array($this, 'position_field_callback'),
             'dniwoo_settings',
             'dniwoo_settings_section'
@@ -97,7 +97,7 @@ class DNIWOO_Admin {
 
         add_settings_field(
             'dniwoo_validation_mode',
-            __('Validation Mode', 'dniwoo'),
+            __('Validation Mode', 'dniwoo-pro'),
             array($this, 'validation_mode_callback'),
             'dniwoo_settings',
             'dniwoo_settings_section'
@@ -110,7 +110,7 @@ class DNIWOO_Admin {
      * @since 1.0.0
      */
     public function settings_section_callback() {
-        echo '<p>' . esc_html__('Configure the DNI/NIF field settings for your WooCommerce checkout.', 'dniwoo') . '</p>';
+        echo '<p>' . esc_html__('Configure the DNI/NIF field settings for your WooCommerce checkout.', 'dniwoo-pro') . '</p>';
     }
 
     /**
@@ -121,7 +121,7 @@ class DNIWOO_Admin {
     public function enabled_field_callback() {
         $value = get_option('dniwoo_enabled', 'yes');
         echo '<input type="checkbox" name="dniwoo_enabled" value="yes" ' . checked($value, 'yes', false) . ' />';
-        echo '<p class="description">' . esc_html__('Enable or disable the DNI/NIF field in checkout.', 'dniwoo') . '</p>';
+        echo '<p class="description">' . esc_html__('Enable or disable the DNI/NIF field in checkout.', 'dniwoo-pro') . '</p>';
     }
 
     /**
@@ -132,7 +132,7 @@ class DNIWOO_Admin {
     public function required_field_callback() {
         $value = get_option('dniwoo_required', 'yes');
         echo '<input type="checkbox" name="dniwoo_required" value="yes" ' . checked($value, 'yes', false) . ' />';
-        echo '<p class="description">' . esc_html__('Make the DNI/NIF field required during checkout.', 'dniwoo') . '</p>';
+        echo '<p class="description">' . esc_html__('Make the DNI/NIF field required during checkout.', 'dniwoo-pro') . '</p>';
     }
 
     /**
@@ -143,11 +143,11 @@ class DNIWOO_Admin {
     public function position_field_callback() {
         $value = get_option('dniwoo_position', 'after_phone');
         $options = array(
-            'after_email' => __('After Email', 'dniwoo'),
-            'after_phone' => __('After Phone', 'dniwoo'),
-            'before_company' => __('Before Company', 'dniwoo'),
-            'after_company' => __('After Company', 'dniwoo'),
-            'end' => __('End of Form', 'dniwoo'),
+            'after_email' => __('After Email', 'dniwoo-pro'),
+            'after_phone' => __('After Phone', 'dniwoo-pro'),
+            'before_company' => __('Before Company', 'dniwoo-pro'),
+            'after_company' => __('After Company', 'dniwoo-pro'),
+            'end' => __('End of Form', 'dniwoo-pro'),
         );
 
         echo '<select name="dniwoo_position">';
@@ -155,7 +155,7 @@ class DNIWOO_Admin {
             echo '<option value="' . esc_attr($key) . '" ' . selected($value, $key, false) . '>' . esc_html($label) . '</option>';
         }
         echo '</select>';
-        echo '<p class="description">' . esc_html__('Choose where to display the DNI/NIF field in the checkout form.', 'dniwoo') . '</p>';
+        echo '<p class="description">' . esc_html__('Choose where to display the DNI/NIF field in the checkout form.', 'dniwoo-pro') . '</p>';
     }
 
     /**
@@ -166,8 +166,8 @@ class DNIWOO_Admin {
     public function validation_mode_callback() {
         $value = get_option('dniwoo_validation_mode', 'real_time');
         $options = array(
-            'real_time' => __('Real-time validation', 'dniwoo'),
-            'on_submit' => __('Validate on form submit', 'dniwoo'),
+            'real_time' => __('Real-time validation', 'dniwoo-pro'),
+            'on_submit' => __('Validate on form submit', 'dniwoo-pro'),
         );
 
         echo '<select name="dniwoo_validation_mode">';
@@ -175,7 +175,7 @@ class DNIWOO_Admin {
             echo '<option value="' . esc_attr($key) . '" ' . selected($value, $key, false) . '>' . esc_html($label) . '</option>';
         }
         echo '</select>';
-        echo '<p class="description">' . esc_html__('Choose when to validate the DNI/NIF field.', 'dniwoo') . '</p>';
+        echo '<p class="description">' . esc_html__('Choose when to validate the DNI/NIF field.', 'dniwoo-pro') . '</p>';
     }
 
     /**
@@ -186,7 +186,7 @@ class DNIWOO_Admin {
     public function settings_page() {
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html__('DNIWOO Settings', 'dniwoo'); ?></h1>
+            <h1><?php echo esc_html__('DNIWOO Settings', 'dniwoo-pro'); ?></h1>
             <form method="post" action="options.php">
                 <?php
                 settings_fields('dniwoo_settings');
@@ -196,21 +196,21 @@ class DNIWOO_Admin {
             </form>
             
             <div class="dniwoo-info-box" style="background: #fff; border: 1px solid #ccd0d4; padding: 20px; margin-top: 20px;">
-                <h3><?php echo esc_html__('Supported Document Types', 'dniwoo'); ?></h3>
+                <h3><?php echo esc_html__('Supported Document Types', 'dniwoo-pro'); ?></h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-                        <h4><?php echo esc_html__('Spain (ES)', 'dniwoo'); ?></h4>
+                        <h4><?php echo esc_html__('Spain (ES)', 'dniwoo-pro'); ?></h4>
                         <ul>
-                            <li><strong>DNI:</strong> <?php echo esc_html__('8 digits + letter (12345678Z)', 'dniwoo'); ?></li>
-                            <li><strong>NIE:</strong> <?php echo esc_html__('X/Y/Z + 7 digits + letter (X1234567L)', 'dniwoo'); ?></li>
-                            <li><strong>CIF:</strong> <?php echo esc_html__('Letter + 7 digits + control (A1234567C)', 'dniwoo'); ?></li>
+                            <li><strong>DNI:</strong> <?php echo esc_html__('8 digits + letter (12345678Z)', 'dniwoo-pro'); ?></li>
+                            <li><strong>NIE:</strong> <?php echo esc_html__('X/Y/Z + 7 digits + letter (X1234567L)', 'dniwoo-pro'); ?></li>
+                            <li><strong>CIF:</strong> <?php echo esc_html__('Letter + 7 digits + control (A1234567C)', 'dniwoo-pro'); ?></li>
                         </ul>
                     </div>
                     <div>
-                        <h4><?php echo esc_html__('Portugal (PT)', 'dniwoo'); ?></h4>
+                        <h4><?php echo esc_html__('Portugal (PT)', 'dniwoo-pro'); ?></h4>
                         <ul>
-                            <li><strong>NIF:</strong> <?php echo esc_html__('9 digits for individuals (123456789)', 'dniwoo'); ?></li>
-                            <li><strong>NIPC:</strong> <?php echo esc_html__('9 digits for companies (123456789)', 'dniwoo'); ?></li>
+                            <li><strong>NIF:</strong> <?php echo esc_html__('9 digits for individuals (123456789)', 'dniwoo-pro'); ?></li>
+                            <li><strong>NIPC:</strong> <?php echo esc_html__('9 digits for companies (123456789)', 'dniwoo-pro'); ?></li>
                         </ul>
                     </div>
                 </div>
@@ -219,25 +219,25 @@ class DNIWOO_Admin {
 
         <!-- Update Section -->
         <div class="dniwoo-settings-section">
-            <h3><?php echo esc_html__('Plugin Updates', 'dniwoo'); ?></h3>
-            <p><?php echo esc_html__('Check for plugin updates manually or view current version information.', 'dniwoo'); ?></p>
+            <h3><?php echo esc_html__('Plugin Updates', 'dniwoo-pro'); ?></h3>
+            <p><?php echo esc_html__('Check for plugin updates manually or view current version information.', 'dniwoo-pro'); ?></p>
             
             <table class="form-table">
                 <tr>
-                    <th scope="row"><?php echo esc_html__('Current Version', 'dniwoo'); ?></th>
+                    <th scope="row"><?php echo esc_html__('Current Version', 'dniwoo-pro'); ?></th>
                     <td>
                         <code><?php echo esc_html(DNIWOO_VERSION); ?></code>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php echo esc_html__('Check for Updates', 'dniwoo'); ?></th>
+                    <th scope="row"><?php echo esc_html__('Check for Updates', 'dniwoo-pro'); ?></th>
                     <td>
                         <button type="button" id="dniwoo-check-updates" class="button button-secondary">
-                            <?php echo esc_html__('Check Now', 'dniwoo'); ?>
+                            <?php echo esc_html__('Check Now', 'dniwoo-pro'); ?>
                         </button>
                         <div id="dniwoo-update-result" style="margin-top: 10px;"></div>
                         <p class="description">
-                            <?php echo esc_html__('Manually check for available updates from GitHub.', 'dniwoo'); ?>
+                            <?php echo esc_html__('Manually check for available updates from GitHub.', 'dniwoo-pro'); ?>
                         </p>
                     </td>
                 </tr>
@@ -252,19 +252,19 @@ class DNIWOO_Admin {
     public function ajax_check_updates() {
         // Verify nonce
         if (!wp_verify_nonce($_POST['nonce'], 'dniwoo_check_updates')) {
-            wp_die(esc_html__('Security check failed', 'dniwoo'));
+            wp_die(esc_html__('Security check failed', 'dniwoo-pro'));
         }
 
         // Check user capability
         if (!current_user_can('manage_options')) {
-            wp_die(esc_html__('Insufficient permissions', 'dniwoo'));
+            wp_die(esc_html__('Insufficient permissions', 'dniwoo-pro'));
         }
 
         // Get updater instance
         $updater = dniwoo()->get_updater();
         
         if (!$updater) {
-            wp_send_json_error(esc_html__('Updater not available', 'dniwoo'));
+            wp_send_json_error(esc_html__('Updater not available', 'dniwoo-pro'));
         }
 
         // Force check for updates
@@ -276,12 +276,12 @@ class DNIWOO_Admin {
         if ($update_info) {
             $message = sprintf(
                 /* translators: %s: version number */
-                esc_html__('Update available: version %s', 'dniwoo'),
+                esc_html__('Update available: version %s', 'dniwoo-pro'),
                 esc_html($update_info['version'])
             );
             wp_send_json_success($message);
         } else {
-            wp_send_json_success(esc_html__('Plugin is up to date', 'dniwoo'));
+            wp_send_json_success(esc_html__('Plugin is up to date', 'dniwoo-pro'));
         }
     }
 
@@ -293,7 +293,7 @@ class DNIWOO_Admin {
      * @since 1.0.0
      */
     public function add_settings_link($links) {
-        $settings_link = '<a href="' . admin_url('admin.php?page=dniwoo-settings') . '">' . __('Settings', 'dniwoo') . '</a>';
+        $settings_link = '<a href="' . admin_url('admin.php?page=dniwoo-settings') . '">' . __('Settings', 'dniwoo-pro') . '</a>';
         array_unshift($links, $settings_link);
         return $links;
     }

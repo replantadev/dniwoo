@@ -120,7 +120,7 @@ class DNIWOO_Validation {
             return array(
                 'valid' => false,
                 'type' => '',
-                'message' => __('Invalid format. Must be 9 digits.', 'dniwoo'),
+                'message' => __('Invalid format. Must be 9 digits.', 'dniwoo-pro'),
             );
         }
 
@@ -143,14 +143,14 @@ class DNIWOO_Validation {
             return array(
                 'valid' => true,
                 'type' => $type,
-                'message' => sprintf(__('Valid %s', 'dniwoo'), $type),
+                'message' => sprintf(__('Valid %s', 'dniwoo-pro'), $type),
             );
         }
 
         return array(
             'valid' => false,
             'type' => '',
-            'message' => __('Invalid NIF/NIPC', 'dniwoo'),
+            'message' => __('Invalid NIF/NIPC', 'dniwoo-pro'),
         );
     }
 
@@ -168,7 +168,7 @@ class DNIWOO_Validation {
             return array(
                 'valid' => $valid,
                 'type' => $valid ? 'DNI' : '',
-                'message' => $valid ? __('Valid DNI', 'dniwoo') : __('Invalid DNI', 'dniwoo'),
+                'message' => $valid ? __('Valid DNI', 'dniwoo-pro') : __('Invalid DNI', 'dniwoo-pro'),
             );
         }
 
@@ -178,7 +178,7 @@ class DNIWOO_Validation {
             return array(
                 'valid' => $valid,
                 'type' => $valid ? 'NIE' : '',
-                'message' => $valid ? __('Valid NIE', 'dniwoo') : __('Invalid NIE', 'dniwoo'),
+                'message' => $valid ? __('Valid NIE', 'dniwoo-pro') : __('Invalid NIE', 'dniwoo-pro'),
             );
         }
 
@@ -188,14 +188,14 @@ class DNIWOO_Validation {
             return array(
                 'valid' => $valid,
                 'type' => $valid ? 'CIF' : '',
-                'message' => $valid ? __('Valid CIF', 'dniwoo') : __('Invalid CIF', 'dniwoo'),
+                'message' => $valid ? __('Valid CIF', 'dniwoo-pro') : __('Invalid CIF', 'dniwoo-pro'),
             );
         }
 
         return array(
             'valid' => false,
             'type' => '',
-            'message' => __('Invalid format', 'dniwoo'),
+            'message' => __('Invalid format', 'dniwoo-pro'),
         );
     }
 
@@ -282,9 +282,9 @@ class DNIWOO_Validation {
      */
     private function get_empty_field_message($country) {
         if ($country === 'PT') {
-            return __('<strong>NIF/NIPC</strong> is a required field.', 'dniwoo');
+            return __('<strong>NIF/NIPC</strong> is a required field.', 'dniwoo-pro');
         }
-        return __('<strong>Document</strong> is a required field (DNI, NIE or CIF).', 'dniwoo');
+        return __('<strong>Document</strong> is a required field (DNI, NIE or CIF).', 'dniwoo-pro');
     }
 
     /**
@@ -300,7 +300,7 @@ class DNIWOO_Validation {
                 'Invalid NIF/NIPC. Accepted formats:<br>
                 • Individual NIF: 9 digits (ex: 123456789)<br>
                 • Company NIPC: 9 digits (ex: 123456789)',
-                'dniwoo'
+                'dniwoo-pro'
             );
         }
 
@@ -309,7 +309,7 @@ class DNIWOO_Validation {
             • DNI: 8 numbers + letter (ex: 12345678Z)<br>
             • NIE: X/Y/Z + 7 numbers + letter (ex: X1234567L)<br>
             • CIF: Letter + 7 numbers + control digit (ex: A1234567C)',
-            'dniwoo'
+            'dniwoo-pro'
         );
     }
 }

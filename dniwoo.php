@@ -1,21 +1,21 @@
 <?php
 /**
- * DNIWOO - Professional DNI/NIF field for WooCommerce
+ * DNIWOO - Professionadefine('DNIWOO_VERSION', '1.0.2'); DNI/NIF field for WooCommerce
  * 
  * @package DNIWOO
  * @author Replanta
  * @copyright 2024 Replanta
  * @license GPL-3.0-or-later
- * @version 1.0.1
+ * @version 1.0.2
  * 
  * @wordpress-plugin
- * Plugin Name: DNIWOO - DNI/NIF for WooCommerce
- * Plugin URI: https://github.com/replantadev/dniwoo
+ * Plugin Name: DNIWOO Pro - DNI/NIF for WooCommerce
+ * Plugin URI: https://replanta.net/dniwoo
  * Description: Professional DNI/NIF field for WooCommerce checkout with validation for Spain and Portugal.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Replanta
  * Author URI: https://replanta.net
- * Text Domain: dniwoo
+ * Text Domain: dniwoo-pro
  * Domain Path: /languages
  * Requires at least: 5.0
  * Tested up to: 6.5
@@ -25,7 +25,6 @@
  * License: GPL v3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Network: false
- * Update URI: https://github.com/replantadev/dniwoo
  */
 
 // Prevent direct access
@@ -39,7 +38,7 @@ define('DNIWOO_PLUGIN_FILE', __FILE__);
 define('DNIWOO_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('DNIWOO_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('DNIWOO_PLUGIN_BASENAME', plugin_basename(__FILE__));
-define('DNIWOO_TEXT_DOMAIN', 'dniwoo');
+define('DNIWOO_TEXT_DOMAIN', 'dniwoo-pro');
 
 /**
  * Main DNIWOO class
@@ -170,7 +169,7 @@ final class DNIWOO {
         require_once DNIWOO_PLUGIN_DIR . 'includes/class-dniwoo-validation.php';
         require_once DNIWOO_PLUGIN_DIR . 'includes/class-dniwoo-admin.php';
         require_once DNIWOO_PLUGIN_DIR . 'includes/class-dniwoo-assets.php';
-        require_once DNIWOO_PLUGIN_DIR . 'includes/class-dniwoo-updater.php';
+        // require_once DNIWOO_PLUGIN_DIR . 'includes/class-dniwoo-updater.php'; // Ahora usando PucFactory
     }
 
     /**
@@ -181,7 +180,7 @@ final class DNIWOO {
         $this->validation = new DNIWOO_Validation();
         $this->admin = new DNIWOO_Admin();
         $this->assets = new DNIWOO_Assets();
-        $this->updater = new DNIWOO_Updater();
+        // $this->updater = new DNIWOO_Updater(); // Ahora usando PucFactory
     }
 
     /**
@@ -189,7 +188,7 @@ final class DNIWOO {
      */
     public function load_textdomain() {
         load_plugin_textdomain(
-            'dniwoo',
+            'dniwoo-pro',
             false,
             dirname(plugin_basename(__FILE__)) . '/languages'
         );
@@ -203,8 +202,8 @@ final class DNIWOO {
         if (!$this->check_dependencies()) {
             deactivate_plugins(plugin_basename(__FILE__));
             wp_die(
-                esc_html__('DNIWOO requires WooCommerce 5.0 or higher to be installed and active.', 'dniwoo'),
-                esc_html__('Plugin Activation Error', 'dniwoo'),
+                esc_html__('DNIWOO requires WooCommerce 5.0 or higher to be installed and active.', 'dniwoo-pro'),
+                esc_html__('Plugin Activation Error', 'dniwoo-pro'),
                 array('back_link' => true)
             );
         }
@@ -228,7 +227,7 @@ final class DNIWOO {
     public function woocommerce_missing_notice() {
         $message = sprintf(
             /* translators: %s: WooCommerce plugin name */
-            esc_html__('DNIWOO requires %s to be installed and active.', 'dniwoo'),
+            esc_html__('DNIWOO requires %s to be installed and active.', 'dniwoo-pro'),
             '<strong>WooCommerce</strong>'
         );
         
@@ -244,7 +243,7 @@ final class DNIWOO {
     public function woocommerce_version_notice() {
         $message = sprintf(
             /* translators: %s: required WooCommerce version */
-            esc_html__('DNIWOO requires WooCommerce version %s or higher.', 'dniwoo'),
+            esc_html__('DNIWOO requires WooCommerce version %s or higher.', 'dniwoo-pro'),
             '<strong>5.0</strong>'
         );
         
@@ -299,6 +298,19 @@ final class DNIWOO {
         return $this->updater;
     }
 }
+
+// Actualizaciones automáticas desde GitHub
+if (file_exists(DNIWOO_PLUGIN_DIR . 'vendor/autoload.php')) {
+    require_once DNIWOO_PLUGIN_DIR . 'vendor/autoload.php';
+}
+
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$updateChecker = PucFactory::buildUpdateChecker(
+    'https://github.com/replantadev/dniwoo/',
+    __FILE__,
+    'dniwoo-pro'
+);
 
 /**
  * Initialize DNIWOO

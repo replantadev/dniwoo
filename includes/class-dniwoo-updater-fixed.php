@@ -67,7 +67,7 @@ class DNIWOO_Updater {
             $this->update_checker = Puc_v4p11_Factory::buildUpdateChecker(
                 'https://github.com/replantadev/dniwoo/',
                 DNIWOO_PLUGIN_FILE,
-                'dniwoo'
+                'dniwoo-pro'
             );
 
             // Optional: Set the branch that contains the stable release
@@ -163,7 +163,7 @@ class DNIWOO_Updater {
      */
     public function check_for_updates() {
         if (!$this->update_checker) {
-            return new WP_Error('no_checker', __('Update checker not initialized', 'dniwoo'));
+            return new WP_Error('no_checker', __('Update checker not initialized', 'dniwoo-pro'));
         }
 
         try {

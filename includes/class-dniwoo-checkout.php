@@ -54,8 +54,8 @@ class DNIWOO_Checkout {
         $required = get_option('dniwoo_required', 'yes') === 'yes';
 
         $fields['billing']['billing_dni'] = array(
-            'label' => __('DNI/NIE/CIF/NIF/NIPC', 'dniwoo'),
-            'placeholder' => _x('12345678X', 'placeholder', 'dniwoo'),
+            'label' => __('DNI/NIE/CIF/NIF/NIPC', 'dniwoo-pro'),
+            'placeholder' => _x('12345678X', 'placeholder', 'dniwoo-pro'),
             'required' => $required,
             'class' => array('form-row-wide'),
             'clear' => true,
@@ -114,11 +114,11 @@ class DNIWOO_Checkout {
     public function modify_address_format($formats) {
         foreach ($formats as $country => $format) {
             if ($country === 'ES') {
-                $formats[$country] = str_replace('{name}', "{name}\n" . __('DNI/NIE/CIF:', 'dniwoo') . ' {dni}', $format);
+                $formats[$country] = str_replace('{name}', "{name}\n" . __('DNI/NIE/CIF:', 'dniwoo-pro') . ' {dni}', $format);
             } elseif ($country === 'PT') {
-                $formats[$country] = str_replace('{name}', "{name}\n" . __('NIF/NIPC:', 'dniwoo') . ' {dni}', $format);
+                $formats[$country] = str_replace('{name}', "{name}\n" . __('NIF/NIPC:', 'dniwoo-pro') . ' {dni}', $format);
             } else {
-                $formats[$country] = str_replace('{name}', "{name}\n" . __('Document:', 'dniwoo') . ' {dni}', $format);
+                $formats[$country] = str_replace('{name}', "{name}\n" . __('Document:', 'dniwoo-pro') . ' {dni}', $format);
             }
         }
         return $formats;
@@ -167,7 +167,7 @@ class DNIWOO_Checkout {
         $country = $order->get_billing_country();
 
         if ($dni) {
-            $label = ($country === 'PT') ? __('NIF/NIPC:', 'dniwoo') : __('DNI/NIE/CIF:', 'dniwoo');
+            $label = ($country === 'PT') ? __('NIF/NIPC:', 'dniwoo-pro') : __('DNI/NIE/CIF:', 'dniwoo-pro');
             echo '<p><strong>' . esc_html($label) . '</strong> ' . esc_html($dni) . '</p>';
         }
     }
@@ -185,7 +185,7 @@ class DNIWOO_Checkout {
         foreach ($columns as $key => $name) {
             $new_columns[$key] = $name;
             if ('billing_address' === $key) {
-                $new_columns['billing_dni'] = __('Document', 'dniwoo');
+                $new_columns['billing_dni'] = __('Document', 'dniwoo-pro');
             }
         }
 
