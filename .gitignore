@@ -13,8 +13,21 @@ wp-content/debug.log
 error_log
 
 # Composer
-vendor/
+# vendor/  # Incluimos vendor para distribución
 composer.lock
+
+# Development files
+build.bat
+build.sh
+release.bat
+release.sh
+install.bat
+install.sh
+*.old.php
+DEVELOPER.md
+INSTALL-GUIDE.md
+INSTALLATION.md
+release-notes-*.md
 
 # Node modules
 node_modules/
