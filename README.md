@@ -17,19 +17,24 @@ Professional DNI/NIF field for WooCommerce checkout with validation for Spain an
 
 ## Installation
 
-### Manual Installation
+**IMPORTANT**: Download from [Releases](https://github.com/replantadev/dniwoo/releases), not the "Code" button.
 
-1. Download the plugin from [GitHub releases](https://github.com/replantadev/dniwoo/releases)
-2. Upload the `dniwoo` folder to `/wp-content/plugins/`
-3. Activate the plugin through the 'Plugins' menu in WordPress
-4. Configure settings in WooCommerce > Settings > DNIWOO
+### Method 1: WordPress Admin (Recommended)
 
-### Via GitHub
+1. Go to [GitHub Releases](https://github.com/replantadev/dniwoo/releases)
+2. Download the latest `dniwoo-vX.X.X.zip` file
+3. In WordPress: **Plugins > Add New > Upload Plugin**
+4. Upload the ZIP file and activate
 
-```bash
-cd wp-content/plugins
-git clone https://github.com/replantadev/dniwoo.git
-```
+### Method 2: Manual Installation
+
+1. Download from [Releases](https://github.com/replantadev/dniwoo/releases)
+2. Extract the ZIP file
+3. Upload the `dniwoo` folder to `/wp-content/plugins/`
+4. Activate in WordPress admin
+
+### ⚠️ Do NOT download from "Code" button
+This creates folder naming issues. Always use the Releases section.
 
 ## Requirements
 
