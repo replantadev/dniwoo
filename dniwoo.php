@@ -6,13 +6,13 @@
  * @author Replanta
  * @copyright 2024 Replanta
  * @license GPL-3.0-or-later
- * @version 1.0.5
+ * @version 1.0.6
  * 
  * @wordpress-plugin
  * Plugin Name: DNIWOO - DNI/NIF for WooCommerce
  * Plugin URI: https://replanta.net/dniwoo
  * Description: Professional DNI/NIF field for WooCommerce checkout with validation for Spain and Portugal.
- * Version: 1.0.5
+ * Version: 1.0.6
  * Author: Replanta
  * Author URI: https://replanta.net
  * Text Domain: dniwoo
@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('DNIWOO_VERSION', '1.0.5');
+define('DNIWOO_VERSION', '1.0.6');
 define('DNIWOO_PLUGIN_FILE', __FILE__);
 define('DNIWOO_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('DNIWOO_PLUGIN_URL', plugin_dir_url(__FILE__));
