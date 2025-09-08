@@ -300,17 +300,22 @@ final class DNIWOO {
 }
 
 // Actualizaciones automáticas desde GitHub
-if (file_exists(DNIWOO_PLUGIN_DIR . 'vendor/autoload.php')) {
-    require_once DNIWOO_PLUGIN_DIR . 'vendor/autoload.php';
+function dniwoo_init_auto_updater() {
+    if (file_exists(DNIWOO_PLUGIN_DIR . 'vendor/autoload.php')) {
+        require_once DNIWOO_PLUGIN_DIR . 'vendor/autoload.php';
+        
+        if (class_exists('YahnisElsts\PluginUpdateChecker\v5\PucFactory')) {
+            $updateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+                'https://github.com/replantadev/dniwoo/',
+                __FILE__,
+                'dniwoo'
+            );
+        }
+    }
 }
 
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-
-$updateChecker = PucFactory::buildUpdateChecker(
-    'https://github.com/replantadev/dniwoo/',
-    __FILE__,
-    'dniwoo'
-);
+// Inicializar el auto-updater después de que WordPress esté listo
+add_action('init', 'dniwoo_init_auto_updater');
 
 /**
  * Initialize DNIWOO
