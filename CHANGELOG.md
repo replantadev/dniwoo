@@ -22,7 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Nothing yet
 
 ### Fixed
-- Nothing yet
+- Fixed Portugal (PT) validation not working in checkout - country code case sensitivity issue
+- Fixed JavaScript error when accessing messages for Portugal country code
+
+## [1.0.7] - 2026-02-03
+
+### Fixed
+- Fixed case sensitivity issue with country codes (PT vs pt) in JavaScript messages
+- Portugal NIF/NIPC validation now works correctly in checkout
 
 ### Security
 - Nothing yet

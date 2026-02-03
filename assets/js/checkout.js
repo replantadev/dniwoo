@@ -51,7 +51,7 @@
 
             if (!$field.length || !$label.length) return;
 
-            const messages = dniwoo_params.messages[country] || dniwoo_params.messages.es;
+            const messages = dniwoo_params.messages[country] || dniwoo_params.messages['ES'];
 
             // Update label
             let labelText = messages.label;
@@ -294,7 +294,8 @@
          */
         showSuccess: function($field, message) {
             const country = $('#billing_country').val() || 'ES';
-            const defaultMessage = dniwoo_params.messages[country].valid;
+            const countryMessages = dniwoo_params.messages[country] || dniwoo_params.messages['ES'];
+            const defaultMessage = countryMessages.valid;
             const $feedback = $('<small class="dniwoo-feedback dniwoo-valid"></small>')
                 .text(message || defaultMessage)
                 .insertAfter($field);
@@ -305,7 +306,8 @@
          */
         showError: function($field, message) {
             const country = $('#billing_country').val() || 'ES';
-            const defaultMessage = dniwoo_params.messages[country].invalid;
+            const countryMessages = dniwoo_params.messages[country] || dniwoo_params.messages['ES'];
+            const defaultMessage = countryMessages.invalid;
             const $feedback = $('<small class="dniwoo-feedback dniwoo-error"></small>')
                 .text(message || defaultMessage)
                 .insertAfter($field);

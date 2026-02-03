@@ -67,13 +67,13 @@ class DNIWOO_Assets {
             'nonce' => wp_create_nonce('dniwoo_validate'),
             'validation_mode' => get_option('dniwoo_validation_mode', 'real_time'),
             'messages' => array(
-                'es' => array(
+                'ES' => array(
                     'invalid' => __('Invalid DNI/NIE/CIF', 'dniwoo'),
                     'valid' => __('Valid document', 'dniwoo'),
                     'label' => __('DNI/NIE/CIF', 'dniwoo'),
                     'placeholder' => '12345678X',
                 ),
-                'pt' => array(
+                'PT' => array(
                     'invalid' => __('Invalid NIF/NIPC', 'dniwoo'),
                     'valid' => __('Valid document', 'dniwoo'),
                     'label' => __('NIF/NIPC', 'dniwoo'),
