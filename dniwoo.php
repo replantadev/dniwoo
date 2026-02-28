@@ -6,22 +6,22 @@
  * @author Replanta
  * @copyright 2024 Replanta
  * @license GPL-3.0-or-later
- * @version 1.0.7
+ * @version 1.1.0
  * 
  * @wordpress-plugin
  * Plugin Name: DNIWOO - DNI/NIF for WooCommerce
  * Plugin URI: https://replanta.net/dniwoo
  * Description: Professional DNI/NIF field for WooCommerce checkout with validation for Spain and Portugal.
- * Version: 1.0.7
+ * Version: 1.1.0
  * Author: Replanta
  * Author URI: https://replanta.net
  * Text Domain: dniwoo
  * Domain Path: /languages
  * Requires at least: 5.0
- * Tested up to: 6.5
+ * Tested up to: 6.7
  * Requires PHP: 7.4
- * WC requires at least: 5.0
- * WC tested up to: 8.9
+ * WC requires at least: 7.0
+ * WC tested up to: 9.6
  * License: GPL v3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Network: false
@@ -32,8 +32,15 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Declare HPOS compatibility
+add_action('before_woocommerce_init', function() {
+    if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+    }
+});
+
 // Define plugin constants
-define('DNIWOO_VERSION', '1.0.7');
+define('DNIWOO_VERSION', '1.1.0');
 define('DNIWOO_PLUGIN_FILE', __FILE__);
 define('DNIWOO_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('DNIWOO_PLUGIN_URL', plugin_dir_url(__FILE__));

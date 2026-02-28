@@ -12,18 +12,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Considering additional European document types
 - API integration for real document verification
 
+## [1.1.0] - 2026-02-28
+
+### Added
+- Full HPOS (High Performance Order Storage) compatibility
+- Support for WooCommerce custom order tables
+- HPOS column hooks for orders list
+
 ### Changed
-- Nothing yet
-
-### Deprecated
-- Nothing yet
-
-### Removed
-- Nothing yet
+- Updated to use WooCommerce Order API instead of post meta functions
+- Changed save_dni_field to work with WC_Order object
+- Updated hooks to use woocommerce_checkout_order_created
+- Minimum WooCommerce version now 7.0
+- Tested up to WordPress 6.7
+- Tested up to WooCommerce 9.6
 
 ### Fixed
-- Fixed Portugal (PT) validation not working in checkout - country code case sensitivity issue
-- Fixed JavaScript error when accessing messages for Portugal country code
+- Fixed compatibility warning with WooCommerce HPOS feature
+- Fixed orders list column display with HPOS enabled
 
 ## [1.0.7] - 2026-02-03
 

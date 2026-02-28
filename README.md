@@ -9,6 +9,7 @@ Professional DNI/NIF field for WooCommerce checkout with validation for Spain an
 - Real-time validation with AJAX
 - Client-side validation for instant feedback
 - WooCommerce integration - seamless checkout experience
+- **HPOS compatible** - works with WooCommerce High Performance Order Storage
 - Theme compatibility - works with all major themes
 - Responsive design - mobile-friendly
 - Accessibility - WCAG compliant
@@ -39,7 +40,7 @@ This creates folder naming issues. Always use the Releases section.
 ## Requirements
 
 - WordPress 5.0 or higher
-- WooCommerce 5.0 or higher
+- WooCommerce 7.0 or higher
 - PHP 7.4 or higher
 
 ## Configuration
@@ -241,6 +242,17 @@ composer phpcbf
 - **Efficient JS** - ES5 compatible, no dependencies
 
 ## Changelog
+
+### 1.1.0 (2026-02-28)
+- Added full HPOS (High Performance Order Storage) compatibility
+- Support for WooCommerce custom order tables
+- Updated to use WooCommerce Order API
+- Minimum WooCommerce version now 7.0
+- Tested with WordPress 6.7 and WooCommerce 9.6
+
+### 1.0.7 (2026-02-03)
+- Fixed Portugal validation country code case sensitivity
+- Fixed JavaScript error with Portugal messages
 
 ### 1.0.0 (2024-01-XX)
 - Initial release

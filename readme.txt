@@ -1,11 +1,13 @@
 === DNIWOO - DNI/NIF for WooCommerce ===
 Contributors: replanta
 Donate link: https://replanta.net/donate
-Tags: woocommerce, dni, nif, nie, cif, spain, portugal, validation, checkout
+Tags: woocommerce, dni, nif, nie, cif, spain, portugal, validation, checkout, hpos
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.6
+Stable tag: 1.1.0
+WC requires at least: 7.0
+WC tested up to: 9.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -119,6 +121,18 @@ Yes, all error messages can be customized in the plugin settings or using WordPr
 
 == Changelog ==
 
+= 1.1.0 =
+* Added full HPOS (High Performance Order Storage) compatibility
+* Now works with WooCommerce custom order tables
+* Updated to use WooCommerce Order API
+* Minimum WooCommerce version now 7.0
+* Tested with WordPress 6.7
+* Tested with WooCommerce 9.6
+
+= 1.0.7 =
+* Fixed Portugal (PT) validation country code case sensitivity
+* Fixed JavaScript error with Portugal messages
+
 = 1.0.0 =
 * Initial release
 * Spanish document validation (DNI, NIE, CIF)
@@ -130,6 +144,9 @@ Yes, all error messages can be customized in the plugin settings or using WordPr
 * Auto-update system
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Important update: Full compatibility with WooCommerce HPOS (High Performance Order Storage). Required for WooCommerce 8.2+.
 
 = 1.0.0 =
 Initial release with complete Spanish and Portuguese document validation.

@@ -34,10 +34,16 @@ class DNIWOO_Checkout {
         add_filter('woocommerce_order_formatted_billing_address', array($this, 'add_dni_to_address'), 10, 2);
         add_filter('woocommerce_localisation_address_formats', array($this, 'modify_address_format'));
         add_filter('woocommerce_formatted_address_replacements', array($this, 'replace_dni_placeholder'), 10, 2);
-        add_action('woocommerce_checkout_update_order_meta', array($this, 'save_dni_field'));
+        add_action('woocommerce_checkout_order_created', array($this, 'save_dni_field'));
         add_action('woocommerce_admin_order_data_after_billing_address', array($this, 'display_dni_admin'), 10, 1);
+        
+        // HPOS compatible column hooks
+        add_filter('manage_woocommerce_page_wc-orders_columns', array($this, 'add_dni_column'));
+        add_action('manage_woocommerce_page_wc-orders_custom_column', array($this, 'display_dni_column_hpos'), 10, 2);
+        
+        // Legacy hooks for backwards compatibility
         add_filter('manage_edit-shop_order_columns', array($this, 'add_dni_column'));
-        add_action('manage_shop_order_posts_custom_column', array($this, 'display_dni_column'), 10, 2);
+        add_action('manage_shop_order_posts_custom_column', array($this, 'display_dni_column_legacy'), 10, 2);
         add_filter('manage_edit-shop_order_sortable_columns', array($this, 'make_dni_column_sortable'));
     }
 
@@ -140,19 +146,22 @@ class DNIWOO_Checkout {
     /**
      * Save DNI field to order meta.
      *
-     * @param int $order_id Order ID.
+     * @param WC_Order $order Order object.
      * @since 1.0.0
+     * @since 1.1.0 Updated to use WC_Order object for HPOS compatibility
      */
-    public function save_dni_field($order_id) {
+    public function save_dni_field($order) {
         if (!empty($_POST['billing_dni'])) {
             $dni = sanitize_text_field(wp_unslash($_POST['billing_dni']));
-            update_post_meta($order_id, '_billing_dni', $dni);
+            $order->update_meta_data('_billing_dni', $dni);
 
             // Save country for reference
             if (!empty($_POST['billing_country'])) {
                 $country = sanitize_text_field(wp_unslash($_POST['billing_country']));
-                update_post_meta($order_id, '_billing_country_dni', $country);
+                $order->update_meta_data('_billing_country_dni', $country);
             }
+            
+            $order->save();
         }
     }
 
@@ -193,16 +202,36 @@ class DNIWOO_Checkout {
     }
 
     /**
-     * Display DNI in orders list column.
+     * Display DNI in orders list column (HPOS).
      *
-     * @param string $column Column name.
+     * @param string   $column Column name.
+     * @param WC_Order $order  Order object.
+     * @since 1.1.0
+     */
+    public function display_dni_column_hpos($column, $order) {
+        if ('billing_dni' === $column) {
+            $dni = $order->get_meta('_billing_dni', true);
+            echo $dni ? esc_html($dni) : '—';
+        }
+    }
+
+    /**
+     * Display DNI in orders list column (Legacy).
+     *
+     * @param string $column  Column name.
      * @param int    $post_id Post ID.
      * @since 1.0.0
+     * @since 1.1.0 Renamed for backwards compatibility
      */
-    public function display_dni_column($column, $post_id) {
+    public function display_dni_column_legacy($column, $post_id) {
         if ('billing_dni' === $column) {
-            $dni = get_post_meta($post_id, '_billing_dni', true);
-            echo $dni ? esc_html($dni) : '—';
+            $order = wc_get_order($post_id);
+            if ($order) {
+                $dni = $order->get_meta('_billing_dni', true);
+                echo $dni ? esc_html($dni) : '—';
+            } else {
+                echo '—';
+            }
         }
     }
 
