@@ -19,6 +19,7 @@ composer.lock
 # Development files
 build.bat
 build.sh
+build.ps1
 release.bat
 release.sh
 install.bat
@@ -28,6 +29,7 @@ DEVELOPER.md
 INSTALL-GUIDE.md
 INSTALLATION.md
 release-notes-*.md
+dist/
 
 # Node modules
 node_modules/

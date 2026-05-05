@@ -33,6 +33,7 @@ class DNIWOO_Validation {
         add_action('woocommerce_checkout_process', array($this, 'validate_dni_field'));
         add_action('wp_ajax_dniwoo_validate', array($this, 'ajax_validate_dni'));
         add_action('wp_ajax_nopriv_dniwoo_validate', array($this, 'ajax_validate_dni'));
+        add_action('rest_api_init', array($this, 'register_rest_routes'));
     }
 
     /**
@@ -41,6 +42,10 @@ class DNIWOO_Validation {
      * @since 1.0.0
      */
     public function validate_dni_field() {
+        if ('yes' !== get_option('dniwoo_enabled', 'yes')) {
+            return;
+        }
+
         $dni = isset($_POST['billing_dni']) ? strtoupper(trim(sanitize_text_field(wp_unslash($_POST['billing_dni'])))) : '';
         $country = isset($_POST['billing_country']) ? sanitize_text_field(wp_unslash($_POST['billing_country'])) : 'ES';
 
@@ -58,6 +63,46 @@ class DNIWOO_Validation {
             $message = $this->get_validation_error_message($country);
             wc_add_notice($message, 'error');
         }
+    }
+
+    /**
+     * Register REST API routes.
+     *
+     * @since 1.2.0
+     */
+    public function register_rest_routes() {
+        register_rest_route('dniwoo/v1', '/validate', array(
+            'methods'             => WP_REST_Server::CREATABLE,
+            'callback'            => array($this, 'rest_validate_dni'),
+            'permission_callback' => '__return_true',
+            'args'                => array(
+                'document' => array(
+                    'required'          => true,
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+                ),
+                'country'  => array(
+                    'required'          => false,
+                    'type'              => 'string',
+                    'default'           => 'ES',
+                    'sanitize_callback' => 'sanitize_text_field',
+                ),
+            ),
+        ));
+    }
+
+    /**
+     * REST API callback for document validation.
+     *
+     * @param WP_REST_Request $request Request object.
+     * @return WP_REST_Response
+     * @since 1.2.0
+     */
+    public function rest_validate_dni($request) {
+        $document = strtoupper(trim($request->get_param('document')));
+        $country  = $request->get_param('country');
+        $result   = $this->validate_document($document, $country);
+        return rest_ensure_response($result);
     }
 
     /**

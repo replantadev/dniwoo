@@ -43,12 +43,13 @@ class DNIWOO_Assets {
         if (!is_checkout()) {
             return;
         }
-
-        $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+        if ('yes' !== get_option('dniwoo_enabled', 'yes')) {
+            return;
+        }
 
         wp_enqueue_script(
             'dniwoo-checkout',
-            DNIWOO_PLUGIN_URL . 'assets/js/checkout' . $suffix . '.js',
+            DNIWOO_PLUGIN_URL . 'assets/js/checkout.js',
             array('jquery'),
             DNIWOO_VERSION,
             true
@@ -56,7 +57,7 @@ class DNIWOO_Assets {
 
         wp_enqueue_style(
             'dniwoo-checkout',
-            DNIWOO_PLUGIN_URL . 'assets/css/checkout' . $suffix . '.css',
+            DNIWOO_PLUGIN_URL . 'assets/css/checkout.css',
             array(),
             DNIWOO_VERSION
         );
@@ -95,18 +96,16 @@ class DNIWOO_Assets {
             return;
         }
 
-        $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-
         wp_enqueue_style(
             'dniwoo-admin',
-            DNIWOO_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css',
+            DNIWOO_PLUGIN_URL . 'assets/css/admin.css',
             array(),
             DNIWOO_VERSION
         );
 
         wp_enqueue_script(
             'dniwoo-admin',
-            DNIWOO_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js',
+            DNIWOO_PLUGIN_URL . 'assets/js/admin.js',
             array('jquery'),
             DNIWOO_VERSION,
             true

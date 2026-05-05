@@ -12,6 +12,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Considering additional European document types
 - API integration for real document verification
 
+## [1.2.0] - 2026-05-05
+
+### Added
+- REST API endpoint `POST /wp-json/dniwoo/v1/validate` for server-side document validation
+- WooCommerce Cart & Checkout Blocks declared as not-yet-compatible via FeaturesUtil
+
+### Changed
+- Auto-updater now uses GitHub Releases assets (PUC v5 enableReleaseAssets)
+- Bump: Tested up to WordPress 6.8 and WooCommerce 9.8
+
+### Fixed
+- Field not shown when `dniwoo_enabled` option is `no` (was always added regardless of setting)
+- Frontend scripts loaded even when field disabled
+- Server-side validation ran even when field disabled
+- Address format injected `Document: {dni}` on all non-ES/PT countries causing empty lines in addresses worldwide
+- Address format could be injected twice on repeated filter calls
+- Admin "Check for Updates" button triggered fatal error when updater object was null
+- `checkout.min.js` / `checkout.min.css` requested but files did not exist (404 on all non-debug installs)
+- `admin.min.js` / `admin.min.css` same 404 issue
+- Nonce not sanitized before `wp_verify_nonce` in `ajax_check_updates`
+
+### Removed
+- `class-dniwoo-updater-old.php` and `class-dniwoo-updater-fixed.php` dead files
+
 ## [1.1.0] - 2026-02-28
 
 ### Added

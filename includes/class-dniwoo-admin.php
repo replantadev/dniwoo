@@ -250,39 +250,20 @@ class DNIWOO_Admin {
      * AJAX handler for checking updates
      */
     public function ajax_check_updates() {
-        // Verify nonce
-        if (!wp_verify_nonce($_POST['nonce'], 'dniwoo_check_updates')) {
+        if (!wp_verify_nonce(
+            isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '',
+            'dniwoo_check_updates'
+        )) {
             wp_die(esc_html__('Security check failed', 'dniwoo'));
         }
 
-        // Check user capability
         if (!current_user_can('manage_options')) {
             wp_die(esc_html__('Insufficient permissions', 'dniwoo'));
         }
 
-        // Get updater instance
-        $updater = dniwoo()->get_updater();
-        
-        if (!$updater) {
-            wp_send_json_error(esc_html__('Updater not available', 'dniwoo'));
-        }
-
-        // Force check for updates
-        $updater->force_check();
-        
-        // Get update info
-        $update_info = $updater->get_update_info();
-        
-        if ($update_info) {
-            $message = sprintf(
-                /* translators: %s: version number */
-                esc_html__('Update available: version %s', 'dniwoo'),
-                esc_html($update_info['version'])
-            );
-            wp_send_json_success($message);
-        } else {
-            wp_send_json_success(esc_html__('Plugin is up to date', 'dniwoo'));
-        }
+        // Force WordPress to re-check plugin updates on next page load
+        delete_site_transient('update_plugins');
+        wp_send_json_success(esc_html__('Update check triggered. Reload Dashboard > Updates to see results.', 'dniwoo'));
     }
 
     /**

@@ -55,6 +55,10 @@ class DNIWOO_Checkout {
      * @since 1.0.0
      */
     public function add_dni_field($fields) {
+        if ('yes' !== get_option('dniwoo_enabled', 'yes')) {
+            return $fields;
+        }
+
         $position = get_option('dniwoo_position', 'after_phone');
         $priority = $this->get_field_priority($position);
         $required = get_option('dniwoo_required', 'yes') === 'yes';
@@ -119,12 +123,15 @@ class DNIWOO_Checkout {
      */
     public function modify_address_format($formats) {
         foreach ($formats as $country => $format) {
+            // Only inject DNI line for Spain and Portugal; skip all other countries.
+            // Guard against duplicate injection on repeated filter calls.
+            if (false !== strpos($format, '{dni}')) {
+                continue;
+            }
             if ($country === 'ES') {
                 $formats[$country] = str_replace('{name}', "{name}\n" . __('DNI/NIE/CIF:', 'dniwoo') . ' {dni}', $format);
             } elseif ($country === 'PT') {
                 $formats[$country] = str_replace('{name}', "{name}\n" . __('NIF/NIPC:', 'dniwoo') . ' {dni}', $format);
-            } else {
-                $formats[$country] = str_replace('{name}', "{name}\n" . __('Document:', 'dniwoo') . ' {dni}', $format);
             }
         }
         return $formats;
