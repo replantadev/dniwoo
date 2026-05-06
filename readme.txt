@@ -5,7 +5,7 @@ Tags: woocommerce, dni, nif, nie, cif, spain, portugal, validation, checkout, hp
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 WC requires at least: 7.0
 WC tested up to: 9.8
 License: GPLv3 or later

@@ -30,11 +30,19 @@ class DNIWOO_Checkout {
      * @since 1.0.0
      */
     private function init_hooks() {
+        // Classic (shortcode) checkout
         add_filter('woocommerce_checkout_fields', array($this, 'add_dni_field'));
+        add_action('woocommerce_checkout_order_created', array($this, 'save_dni_field'));
+
+        // Blocks checkout (WC 8.9+ Additional Checkout Fields API)
+        add_action('woocommerce_init', array($this, 'register_blocks_field'));
+        add_action('woocommerce_blocks_validate_location_contact_fields', array($this, 'validate_blocks_field'), 10, 3);
+        add_action('woocommerce_store_api_checkout_update_order_from_request', array($this, 'save_dni_field_blocks'), 10, 2);
+
+        // Address formatting
         add_filter('woocommerce_order_formatted_billing_address', array($this, 'add_dni_to_address'), 10, 2);
         add_filter('woocommerce_localisation_address_formats', array($this, 'modify_address_format'));
         add_filter('woocommerce_formatted_address_replacements', array($this, 'replace_dni_placeholder'), 10, 2);
-        add_action('woocommerce_checkout_order_created', array($this, 'save_dni_field'));
         add_action('woocommerce_admin_order_data_after_billing_address', array($this, 'display_dni_admin'), 10, 1);
         
         // HPOS compatible column hooks
@@ -48,7 +56,96 @@ class DNIWOO_Checkout {
     }
 
     /**
-     * Add DNI field to checkout.
+     * Register DNI field for Blocks checkout (WC Additional Checkout Fields API, WC 8.9+).
+     *
+     * The field appears in the "Contact information" section so it renders once,
+     * not duplicated in billing AND shipping address panels.
+     *
+     * @since 1.2.2
+     */
+    public function register_blocks_field() {
+        if (!function_exists('woocommerce_register_additional_checkout_field')) {
+            return;
+        }
+        if ('yes' !== get_option('dniwoo_enabled', 'yes')) {
+            return;
+        }
+        woocommerce_register_additional_checkout_field(array(
+            'id'         => 'dniwoo/billing_dni',
+            'label'      => __('DNI/NIE/CIF/NIF/NIPC', 'dniwoo'),
+            'location'   => 'contact',
+            'required'   => get_option('dniwoo_required', 'yes') === 'yes',
+            'attributes' => array(
+                'autocomplete' => 'off',
+                'maxlength'    => '20',
+            ),
+        ));
+    }
+
+    /**
+     * Validate DNI field submitted via Blocks checkout.
+     *
+     * Runs on woocommerce_blocks_validate_location_contact_fields.
+     *
+     * @param \WP_Error $errors            Error object to add errors to.
+     * @param array     $fields            Array of submitted field values keyed by field id.
+     * @param string    $validationContext 'billing' or 'shipping'.
+     * @since 1.2.2
+     */
+    public function validate_blocks_field($errors, $fields, $validationContext) {
+        if (!isset($fields['dniwoo/billing_dni'])) {
+            return;
+        }
+        if ('yes' !== get_option('dniwoo_enabled', 'yes')) {
+            return;
+        }
+        $value = strtoupper(trim($fields['dniwoo/billing_dni']));
+        if (empty($value)) {
+            return; // WC handles the "required" check automatically.
+        }
+        // Accept document if valid for Spain OR Portugal.
+        $validation = dniwoo()->get_validation();
+        $es = $validation->validate_document($value, 'ES');
+        $pt = $validation->validate_document($value, 'PT');
+        if (!$es['valid'] && !$pt['valid']) {
+            $errors->add(
+                'invalid_billing_dni',
+                __('The entered DNI/NIE/CIF/NIF/NIPC is not valid.', 'dniwoo')
+            );
+        }
+    }
+
+    /**
+     * Save DNI submitted via Blocks checkout (Store API path).
+     *
+     * WooCommerce saves the raw value under meta key 'dniwoo/billing_dni';
+     * we also copy it to '_billing_dni' so all existing order/address code works.
+     *
+     * @param \WC_Order        $order   Order object.
+     * @param \WP_REST_Request $request REST request.
+     * @since 1.2.2
+     */
+    public function save_dni_field_blocks($order, $request) {
+        // 1. Try the Additional Fields payload (WC 8.9+ blocks REST path).
+        $additional = $request->get_param('additional_fields');
+        $dni = !empty($additional['dniwoo/billing_dni'])
+            ? sanitize_text_field($additional['dniwoo/billing_dni'])
+            : '';
+
+        // 2. Fallback: WC may have already persisted to its own meta key.
+        if (empty($dni)) {
+            $stored = $order->get_meta('dniwoo/billing_dni');
+            $dni = !empty($stored) ? sanitize_text_field($stored) : '';
+        }
+
+        if (!empty($dni)) {
+            $order->update_meta_data('_billing_dni', strtoupper(trim($dni)));
+            $order->save();
+        }
+    }
+
+    /**
+     * Add DNI field to checkout (classic / shortcode checkout).
      *
      * @param array $fields Checkout fields.
      * @return array Modified checkout fields.

@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Considering additional European document types
 - API integration for real document verification
 
+## [1.2.2] - 2026-05-06
+
+### Added
+- Full WooCommerce Blocks Checkout compatibility: DNI/NIE/CIF field now appears natively in the "Contact information" section of the blocks checkout via the WC Additional Checkout Fields API (WC 8.9+)
+- Blocks checkout validation via `woocommerce_blocks_validate_location_contact_fields` (accepts ES and PT documents)
+- Blocks checkout save via `woocommerce_store_api_checkout_update_order_from_request`
+- `cart_checkout_blocks` declared as compatible (was `false`, now `true`)
+
 ## [1.2.1] - 2026-05-06
 
 ### Fixed
