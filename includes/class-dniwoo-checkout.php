@@ -123,15 +123,17 @@ class DNIWOO_Checkout {
      */
     public function modify_address_format($formats) {
         foreach ($formats as $country => $format) {
-            // Only inject DNI line for Spain and Portugal; skip all other countries.
+            // Only inject DNI line for Spain and Portugal.
             // Guard against duplicate injection on repeated filter calls.
             if (false !== strpos($format, '{dni}')) {
                 continue;
             }
-            if ($country === 'ES') {
-                $formats[$country] = str_replace('{name}', "{name}\n" . __('DNI/NIE/CIF:', 'dniwoo') . ' {dni}', $format);
-            } elseif ($country === 'PT') {
-                $formats[$country] = str_replace('{name}', "{name}\n" . __('NIF/NIPC:', 'dniwoo') . ' {dni}', $format);
+            if ($country === 'ES' || $country === 'PT') {
+                // Inject just the bare token — the label prefix is added in
+                // replace_dni_placeholder() together with the value so that
+                // when there is no DNI the whole line collapses to empty and
+                // WooCommerce removes it (avoids orphan "DNI/NIE/CIF: " lines).
+                $formats[$country] = str_replace('{name}', "{name}\n{dni}", $format);
             }
         }
         return $formats;
@@ -146,7 +148,18 @@ class DNIWOO_Checkout {
      * @since 1.0.0
      */
     public function replace_dni_placeholder($replacements, $args) {
-        $replacements['{dni}'] = !empty($args['dni']) ? $args['dni'] : '';
+        if (!empty($args['dni'])) {
+            // Include the country-aware label so the format line is complete
+            // only when a value actually exists.
+            $country = isset($args['country']) ? $args['country'] : 'ES';
+            $label   = ($country === 'PT')
+                ? __('NIF/NIPC:', 'dniwoo')
+                : __('DNI/NIE/CIF:', 'dniwoo');
+            $replacements['{dni}'] = $label . ' ' . $args['dni'];
+        } else {
+            // Empty string -> WC strips the blank line from the formatted address.
+            $replacements['{dni}'] = '';
+        }
         return $replacements;
     }
 

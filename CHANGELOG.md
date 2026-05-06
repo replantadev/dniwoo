@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Considering additional European document types
 - API integration for real document verification
 
+## [1.2.1] - 2026-05-06
+
+### Fixed
+- Address format: `{dni}` token now collapses to empty string when no DNI is present, preventing orphan "DNI/NIE/CIF: " lines in billing address on orders, emails and account pages
+- Address format: label prefix ("DNI/NIE/CIF:"/"NIF/NIPC:") moved into the replacement value so WooCommerce correctly removes the blank line
+- Blocks checkout: `{dni}` no longer shows as literal text in the address preview card (consequence of the format fix)
+
 ## [1.2.0] - 2026-05-05
 
 ### Added
